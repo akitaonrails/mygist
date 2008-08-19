@@ -1,32 +1,47 @@
 = mygist
 
-* FIX (url)
+* http://www.akitaonrails.com
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Encapsulates the basic Gist operations in a simple Library that uses WWW::Mechanize 
+while there is still no available public API
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Login
+* Logout
+* Create a new Gist
+* Edit an existing Gist
+* Delete a Gist
+* List all Gists or just the logged in user gists
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  begin
+    gist = Mygist::GistApi.new('username', 'password')
+    gist.login!
+    id = gist.create("Hello World", ".txt")
+    gist.update!(id, "Hello World Again!")
+    gist.delete!(id)
+    gist.logout!
+  rescue Mygist::GistApi::NotLoggedIn
+    # if the login fails 
+  end
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* gem install mechanize
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* gem install akitaonrails-mygist --source=http://gems.github.com
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2008 FIXME full name
+Copyright (c) 2008 Fabio Akita
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
