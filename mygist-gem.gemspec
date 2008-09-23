@@ -1,4 +1,3 @@
-(in /Users/akitaonrails/Sites/rails/sandbox/mygist)
 Gem::Specification.new do |s|
   s.name = %q{mygist}
   s.version = "0.0.1"
