@@ -82,9 +82,22 @@ module Mygist
     def update!(gist_id, snippet, file_name = nil, type = nil)
       page = @agent.get("#{@list_page}/#{gist_id}/edit")
       update_form = page.forms.first
-      update_form.field('file_contents[gistfile1.txt]').value = snippet
-      update_form.field('file_name[gistfile1.txt]').value = file_name
-      update_form.field('file_ext[gistfile1.txt]').value = type
+
+      file_content_name   = page.search("//textarea[@class='file-contents']").first.attributes['name']
+      file_extension_name = page.search("//div[@class='gist-lang']").first.search("//select").first.attributes['name']
+      file_name_name      = page.search("//input[@class='gist-name-textbox']").first.attributes['name']
+
+      update_form.field(file_content_name).value = snippet
+
+      unless file_name.nil?
+        update_form.field(file_name_name).value = file_name
+      else
+        unless type.nil?
+          update_form.field(file_extension_name).value = type
+          update_form.field(file_name_name).value = ''
+        end
+      end
+
       @agent.submit(update_form)
       nil
     end
